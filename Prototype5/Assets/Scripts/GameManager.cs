@@ -8,6 +8,9 @@ using UnityEngine.UI; // added
 
 public class GameManager : MonoBehaviour
 {
+    private float spawnRate = 1.0f;
+    private int score;
+
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI gameOverText;
     public bool isGameActive;
@@ -16,8 +19,7 @@ public class GameManager : MonoBehaviour
     public List<GameObject> targets;
     //public GameObjects[] targets2;
     
-    private float spawnRate = 1.0f;
-    private int score;
+    
 
     
     // Start is called before the first frame update
@@ -33,10 +35,11 @@ public class GameManager : MonoBehaviour
     }
 
     // moved everything from Start()
-    public void StartGame()
+    public void StartGame(int difficulty)
     {
         isGameActive = true; // (order of code matters) must be set before coroutine
         score = 0;
+        spawnRate /= difficulty; // reduce spawnRate delay on higher difficulty
 
         StartCoroutine(SpawnTarget());
         UpdateScore(0);
