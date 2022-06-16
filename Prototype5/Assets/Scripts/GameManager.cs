@@ -1,9 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro; // added
+
 
 public class GameManager : MonoBehaviour
 {
+    public TextMeshProUGUI scoreText;
+    private int score;
+
     //public GameObjects[] targets2;
     public List<GameObject> targets;
     
@@ -13,6 +18,8 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         StartCoroutine(SpawnTarget());
+        score = 0;
+        scoreText.text = "Score: " + score;
     }
 
     // Update is called once per frame
