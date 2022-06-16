@@ -4,19 +4,17 @@ using UnityEngine;
 
 public class Target : MonoBehaviour
 {
+    private GameManager gameManager; // get reference to GameManager script
     private Rigidbody targetRb;
-
     private float minSpeed = 12;
     private float maxSpeed = 16;
     private float maxTorque = 10;
     private float xRange = 4;
     private float ySpawnPos = -2;
-
-    private GameManager gameManager;
-
+    
     public int pointValue; //each prefab has own value
-
     public ParticleSystem explosionParticle;
+
 
     // Start is called before the first frame update
     void Start()
@@ -27,7 +25,6 @@ public class Target : MonoBehaviour
         targetRb.AddTorque(RandomTorque(), RandomTorque(), RandomTorque(), ForceMode.Impulse);
 
         transform.position = RandomSpawnPos();
-
     }
 
     // Update is called once per frame
@@ -54,15 +51,25 @@ public class Target : MonoBehaviour
     // when user clicks down on mouse key
     private void OnMouseDown()
     {
-        Destroy(gameObject);
-        Instantiate(explosionParticle, transform.position, explosionParticle.transform.rotation);
-        gameManager.UpdateScore(pointValue);
+        if(gameManager.isGameActive)
+        {
+            Destroy(gameObject);
+            Instantiate(explosionParticle, transform.position, explosionParticle.transform.rotation);
+            gameManager.UpdateScore(pointValue);
+        }
+        
     }
 
+    // when 'bad' object triggers sensor(enabled), delete the object, otherwise, game over
     private void OnTriggerEnter(Collider other)
     {
         Destroy(gameObject);
         
+        // if game object is NOT a bad object, prompt game over
+        if(!gameObject.CompareTag("Bad"))
+        {
+            gameManager.GameOver();
+        }
     }
 
 }

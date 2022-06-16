@@ -2,26 +2,28 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro; // added
+using UnityEngine.SceneManagement; // added
+using UnityEngine.UI; // added
 
 
 public class GameManager : MonoBehaviour
 {
     public TextMeshProUGUI scoreText;
-    private int score;
-
-    //public GameObjects[] targets2;
+    public TextMeshProUGUI gameOverText;
+    public bool isGameActive;
+    public Button restartButton;
+    public GameObject titleScreen;
     public List<GameObject> targets;
+    //public GameObjects[] targets2;
     
     private float spawnRate = 1.0f;
+    private int score;
 
-
+    
     // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine(SpawnTarget());
-        score = 0;
-        UpdateScore(0);
-        //scoreText.text = "Score: " + score;
+        
     }
 
     // Update is called once per frame
@@ -29,16 +31,26 @@ public class GameManager : MonoBehaviour
     {
         
     }
+
+    // moved everything from Start()
+    public void StartGame()
+    {
+        isGameActive = true; // (order of code matters) must be set before coroutine
+        score = 0;
+
+        StartCoroutine(SpawnTarget());
+        UpdateScore(0);
+
+        titleScreen.gameObject.SetActive(false); // when game starts, hide title screen
+    }
     
     IEnumerator SpawnTarget()
     {
-        while(true)
+        while(isGameActive)
         {
             yield return new WaitForSeconds(spawnRate);
             int index = Random.Range(0, targets.Count); // gives us count of how many objects are in that list
             Instantiate(targets[index]);
-
-            //UpdateScore(5); // add just to test if it's working
         }
     }
 
@@ -46,5 +58,17 @@ public class GameManager : MonoBehaviour
     {
         score += scoreToAdd;
         scoreText.text = "Score: " + score;
+    }
+
+    public void GameOver()
+    {
+        restartButton.gameObject.SetActive(true); // prompt restart button when game over
+        gameOverText.gameObject.SetActive(true);
+        isGameActive = false;
+    }
+
+    public void RestartGame()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name); // restart scene
     }
 }
