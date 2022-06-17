@@ -1090,6 +1090,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scoreText: {fileID: 116231999}
   gameOverText: {fileID: 919200876}
+  timerText: {fileID: 375966490}
   titleScreen: {fileID: 92482018}
   restartButton: {fileID: 1902351379}
   targetPrefabs:
