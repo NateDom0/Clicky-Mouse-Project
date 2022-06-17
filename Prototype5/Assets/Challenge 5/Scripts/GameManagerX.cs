@@ -20,6 +20,7 @@ public class GameManagerX : MonoBehaviour
     public bool isGameActive;
 
     private float countDown = 60.0f;
+    private float countDownLimit = 0;
     private float spaceBetweenSquares = 2.5f; 
     private float minValueX = -3.75f; //  x value of the center of the left-most square
     private float minValueY = -3.75f; //  y value of the center of the bottom-most square
@@ -32,6 +33,7 @@ public class GameManagerX : MonoBehaviour
         spawnRate /= difficulty;
 
         StartCoroutine(SpawnTarget());
+        StartCoroutine(UpdateTimer()); 
         
         UpdateScore(0);
         titleScreen.SetActive(false);
@@ -52,6 +54,35 @@ public class GameManagerX : MonoBehaviour
             
         }
     }
+
+    // Set countdown timer
+    IEnumerator UpdateTimer()
+    {
+        while (isGameActive && countDown >= countDownLimit)
+        {
+            yield return new WaitForSeconds(0.5f);
+            timerText.text = "Time: " + countDown;
+
+            countDown -= 1;
+
+
+            /*
+            if(countDown != countDownLimit)
+            {
+                countDown -= 1;
+                // Debug.Log("Time is: " + countDown); //testing purposes
+            }
+            else
+            {
+                GameOver();
+            }*/
+        }
+        GameOver();
+        
+    }
+
+
+
 
     // Generate a random spawn position based on a random index from 0 to 3
     Vector3 RandomSpawnPosition()
