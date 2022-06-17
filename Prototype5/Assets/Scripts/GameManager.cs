@@ -8,11 +8,13 @@ using UnityEngine.UI; // added
 
 public class GameManager : MonoBehaviour
 {
-    private float spawnRate = 1.0f;
+    private float spawnRate = 1.0f; //1.0
     private int score;
+    private int lives; // set to 3
 
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI gameOverText;
+    public TextMeshProUGUI livesText;
     public bool isGameActive;
     public Button restartButton;
     public GameObject titleScreen;
@@ -41,6 +43,7 @@ public class GameManager : MonoBehaviour
 
         StartCoroutine(SpawnTarget());
         UpdateScore(0);
+        UpdateLives(3);
 
         titleScreen.gameObject.SetActive(false); // when game starts, hide title screen
     }
@@ -54,6 +57,21 @@ public class GameManager : MonoBehaviour
             Instantiate(targets[index]);
         }
     }
+
+
+    // Keep track of lives
+    public void UpdateLives(int liveCount)
+    {
+        lives += liveCount;  // live = live + liveCount
+        livesText.text = "Lives: " + lives;
+
+        // If lives hits 0, game over
+        if(lives <= 0) 
+        {
+            GameOver();
+        }
+    }
+
 
     public void UpdateScore(int scoreToAdd) // change to public
     {

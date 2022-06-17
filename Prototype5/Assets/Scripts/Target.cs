@@ -12,6 +12,7 @@ public class Target : MonoBehaviour
     private float xRange = 4;
     private float ySpawnPos = -2;
     
+    
     public int pointValue; //each prefab has own value
     public ParticleSystem explosionParticle;
 
@@ -65,11 +66,23 @@ public class Target : MonoBehaviour
     {
         Destroy(gameObject);
         
+        
+       
         // if game object is NOT a bad object, prompt game over
-        if(!gameObject.CompareTag("Bad"))
+        //NEW: If good object triggers and game is still active
+        if(!gameObject.CompareTag("Bad") && gameManager.isGameActive)
         {
-            gameManager.GameOver();
+           gameManager.UpdateLives(-1); // decrease lives by 1 for each object
         }
     }
 
 }
+
+/*
+ while(!gameObject.CompareTag("Bad") && liveAmount >=0) // while good objects collide
+        {
+            liveAmount -= 1;
+            gameManager.UpdateLives(liveAmount);
+        }
+        gameManager.GameOver();
+        */
