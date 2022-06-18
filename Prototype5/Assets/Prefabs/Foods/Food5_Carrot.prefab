@@ -128,3 +128,4 @@ MonoBehaviour:
   pointValue: 15
   explosionParticle: {fileID: 2478549635105912040, guid: ec46c8c4a3cbc429382ee48bd9169b45, type: 3}
   bombSound: {fileID: 0}
+  goodSound: {fileID: 8300000, guid: 1eb8ecd08cef5fa4a9d8373d6d8713a7, type: 3}

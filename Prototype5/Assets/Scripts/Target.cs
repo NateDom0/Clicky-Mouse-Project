@@ -16,7 +16,9 @@ public class Target : MonoBehaviour
     public int pointValue; //each prefab has own value
     public ParticleSystem explosionParticle;
     public AudioClip bombSound;
-    public AudioSource getSoundEffect;
+    private AudioSource getSoundEffect;
+
+    public AudioClip goodSound;
 
 
     // Start is called before the first frame update
@@ -93,6 +95,7 @@ public class Target : MonoBehaviour
             }
             else
             {
+                AudioSource.PlayClipAtPoint(goodSound, transform.position);
                 Destroy(gameObject);
                 Instantiate(explosionParticle, transform.position, explosionParticle.transform.rotation);
                 gameManager.UpdateScore(pointValue);
