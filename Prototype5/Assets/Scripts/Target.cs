@@ -15,11 +15,14 @@ public class Target : MonoBehaviour
     
     public int pointValue; //each prefab has own value
     public ParticleSystem explosionParticle;
+    public AudioClip bombSound;
+    private AudioSource getSoundEffect;
 
 
     // Start is called before the first frame update
     void Start()
     {
+        getSoundEffect = GetComponent<AudioSource>();
         targetRb = GetComponent<Rigidbody>();
         gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>(); // get reference to Game Manager 
         targetRb.AddForce(RandomForce(), ForceMode.Impulse);
@@ -54,6 +57,7 @@ public class Target : MonoBehaviour
     {
         if(gameManager.isGameActive)
         {
+            getSoundEffect.PlayOneShot(bombSound);
             Destroy(gameObject);
             Instantiate(explosionParticle, transform.position, explosionParticle.transform.rotation);
             gameManager.UpdateScore(pointValue);
@@ -66,8 +70,6 @@ public class Target : MonoBehaviour
     {
         Destroy(gameObject);
         
-        
-       
         // if game object is NOT a bad object, prompt game over
         //NEW: If good object triggers and game is still active
         if(!gameObject.CompareTag("Bad") && gameManager.isGameActive)
