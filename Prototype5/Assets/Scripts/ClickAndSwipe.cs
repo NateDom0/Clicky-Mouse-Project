@@ -15,11 +15,15 @@ public class ClickAndSwipe : MonoBehaviour
 
     private bool swiping = false;
 
+    public AudioClip swipeSound;
+    private AudioSource swipeSoundSource;
+
 
 
     // Start is called before the first frame update
     void Awake() // changed 'Start' to 'Awake'
     {
+        swipeSoundSource = GetComponent<AudioSource>();
         cam = Camera.main;
         trail = GetComponent<TrailRenderer>();
         col = GetComponent<BoxCollider>();
@@ -45,6 +49,7 @@ public class ClickAndSwipe : MonoBehaviour
 
         if(swiping && !gameManager.paused)
         {
+            //swipeSoundSource.PlayOneShot(swipeSound);
             UpdateMousePosition();
         }
     }
