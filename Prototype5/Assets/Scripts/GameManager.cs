@@ -16,8 +16,10 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI gameOverText;
     public TextMeshProUGUI livesText;
     public bool isGameActive;
+    public bool paused;
     public Button restartButton;
     public GameObject titleScreen;
+    public GameObject pauseScreen;
     public List<GameObject> targets;
     //public GameObjects[] targets2;
     
@@ -31,7 +33,10 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if(Input.GetKeyDown(KeyCode.P))
+        {
+            ChangePaused();
+        }
     }
 
     // moved everything from Start()
@@ -47,6 +52,24 @@ public class GameManager : MonoBehaviour
 
         titleScreen.gameObject.SetActive(false); // when game starts, hide title screen
     }
+
+    // Pauses game when 'P' key is pressed
+    public void ChangePaused()
+    {
+        if(!paused)
+        {
+            paused = true;  
+            pauseScreen.SetActive(true); // pause screen enabled and displayed
+            Time.timeScale = 0; // physics calculations are paused
+        }
+        else
+        {
+            paused = false; // disable pause screen and set it to inactive
+            pauseScreen.SetActive(false);
+            Time.timeScale = 1;
+        }
+    }
+
     
     IEnumerator SpawnTarget()
     {

@@ -55,7 +55,7 @@ public class Target : MonoBehaviour
     // when user clicks down on mouse key
     private void OnMouseDown()
     {
-        if(gameManager.isGameActive)
+        if(gameManager.isGameActive && !gameManager.paused)
         {
             getSoundEffect.PlayOneShot(bombSound);
             Destroy(gameObject);
