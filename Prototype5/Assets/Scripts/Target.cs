@@ -52,6 +52,7 @@ public class Target : MonoBehaviour
         return new Vector3(Random.Range(-xRange, xRange), ySpawnPos);
     }
 
+    /*
     // when user clicks down on mouse key
     private void OnMouseDown()
     {
@@ -64,6 +65,7 @@ public class Target : MonoBehaviour
         }
         
     }
+    */
 
     // when 'bad' object triggers sensor(enabled), delete the object, otherwise, game over
     private void OnTriggerEnter(Collider other)
@@ -78,13 +80,13 @@ public class Target : MonoBehaviour
         }
     }
 
-}
-
-/*
- while(!gameObject.CompareTag("Bad") && liveAmount >=0) // while good objects collide
+    public void DestroyTarget()
+    {
+        if(gameManager.isGameActive && !gameManager.paused)
         {
-            liveAmount -= 1;
-            gameManager.UpdateLives(liveAmount);
+            Destroy(gameObject);
+            Instantiate(explosionParticle, transform.position, explosionParticle.transform.rotation);
+            gameManager.UpdateScore(pointValue);
         }
-        gameManager.GameOver();
-        */
+    }
+}
