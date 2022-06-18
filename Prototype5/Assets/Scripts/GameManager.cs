@@ -20,6 +20,8 @@ public class GameManager : MonoBehaviour
     public Button restartButton;
     public GameObject titleScreen;
     public GameObject pauseScreen;
+    public GameObject instructionScene;
+    public GameObject goBackButton;
     public List<GameObject> targets;
     //public GameObjects[] targets2;
     
@@ -50,6 +52,7 @@ public class GameManager : MonoBehaviour
         UpdateScore(0);
         UpdateLives(3);
 
+        instructionScene.gameObject.SetActive(false);
         titleScreen.gameObject.SetActive(false); // when game starts, hide title screen
     }
 
@@ -112,5 +115,17 @@ public class GameManager : MonoBehaviour
     public void RestartGame()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name); // restart scene
+    }
+
+    public void displayInstructions()
+    {
+        instructionScene.gameObject.SetActive(true);
+        titleScreen.gameObject.SetActive(false);
+    }
+
+    public void goBack()
+    {
+        titleScreen.gameObject.SetActive(true);
+        instructionScene.gameObject.SetActive(false);
     }
 }
