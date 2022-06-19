@@ -11,13 +11,11 @@ public class Target : MonoBehaviour
     private float maxTorque = 10;
     private float xRange = 4;
     private float ySpawnPos = -2;
-    
+    private AudioSource getSoundEffect;
     
     public int pointValue; //each prefab has own value
     public ParticleSystem explosionParticle;
     public AudioClip bombSound;
-    private AudioSource getSoundEffect;
-
     public AudioClip goodSound;
 
 
@@ -54,20 +52,6 @@ public class Target : MonoBehaviour
         return new Vector3(Random.Range(-xRange, xRange), ySpawnPos);
     }
 
-    /*
-    // when user clicks down on mouse key
-    private void OnMouseDown()
-    {
-        if(gameManager.isGameActive && !gameManager.paused)
-        {
-            //getSoundEffect.PlayOneShot(bombSound);
-            Destroy(gameObject);
-            Instantiate(explosionParticle, transform.position, explosionParticle.transform.rotation);
-            gameManager.UpdateScore(pointValue);
-        }
-        
-    }
-    */
 
     // when 'bad' object triggers sensor(enabled), delete the object, otherwise, game over
     private void OnTriggerEnter(Collider other)
@@ -103,4 +87,19 @@ public class Target : MonoBehaviour
             
         }
     }
+
+    /*
+    // when user clicks down on mouse key
+    private void OnMouseDown()
+    {
+        if(gameManager.isGameActive && !gameManager.paused)
+        {
+            //getSoundEffect.PlayOneShot(bombSound);
+            Destroy(gameObject);
+            Instantiate(explosionParticle, transform.position, explosionParticle.transform.rotation);
+            gameManager.UpdateScore(pointValue);
+        }
+        
+    }
+    */
 }

@@ -22,6 +22,7 @@ public class GameManager : MonoBehaviour
     public GameObject pauseScreen;
     public GameObject instructionScene;
     public GameObject goBackButton;
+    // public GameObject pauseGoHomeButton;
     public List<GameObject> targets;
     //public GameObjects[] targets2;
     
