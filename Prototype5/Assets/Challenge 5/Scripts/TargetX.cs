@@ -6,18 +6,21 @@ public class TargetX : MonoBehaviour
 {
     private Rigidbody rb;
     private GameManagerX gameManagerX;
-    public int pointValue;
-    public GameObject explosionFx;
-
-    public float timeOnScreen = 1.0f;
-
     private float minValueX = -3.75f; // the x value of the center of the left-most square
     private float minValueY = -3.75f; // the y value of the center of the bottom-most square
     private float spaceBetweenSquares = 2.5f; // the distance between the centers of squares on the game board
+    private AudioSource soundSource;
     
+    public int pointValue;
+    public float timeOnScreen = 1.0f;
+    public GameObject explosionFx;
+    public AudioClip splatSound;
+    public AudioClip crackSound; // for skull
 
+    
     void Start()
     {
+        soundSource = GetComponent<AudioSource>();
         rb = GetComponent<Rigidbody>();
         gameManagerX = GameObject.Find("Game Manager").GetComponent<GameManagerX>();
 
@@ -31,9 +34,21 @@ public class TargetX : MonoBehaviour
     {
         if (gameManagerX.isGameActive)
         {
-            Destroy(gameObject);
-            gameManagerX.UpdateScore(pointValue);
-            Explode();
+            if(gameObject.CompareTag("Bad"))
+            {
+                AudioSource.PlayClipAtPoint(crackSound, transform.position);
+                Destroy(gameObject);
+                gameManagerX.UpdateScore(pointValue);
+                Explode();
+            }
+            else
+            {
+                AudioSource.PlayClipAtPoint(splatSound, transform.position);
+                Destroy(gameObject);
+                gameManagerX.UpdateScore(pointValue);
+                Explode();
+            }
+            
         }
                
     }
