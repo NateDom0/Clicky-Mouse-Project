@@ -32,7 +32,7 @@ public class TargetX : MonoBehaviour
     // When target is clicked, destroy it, update score, and generate explosion
     private void OnMouseDown()
     {
-        if (gameManagerX.isGameActive)
+        if (gameManagerX.isGameActive && !gameManagerX.isPaused)
         {
             if(gameObject.CompareTag("Bad"))
             {

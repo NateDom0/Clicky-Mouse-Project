@@ -7,23 +7,26 @@ using UnityEngine.UI;
 
 public class GameManagerX : MonoBehaviour
 {
-    public TextMeshProUGUI scoreText;
-    public TextMeshProUGUI gameOverText;
-    public TextMeshProUGUI timerText;
-    public GameObject titleScreen;
-    public Button restartButton; 
-
-    public List<GameObject> targetPrefabs;
-
     private int score;
     private float spawnRate = 1.5f;
-    public bool isGameActive;
-
     private float countDown = 60.0f;
     private float countDownLimit = 0;
     private float spaceBetweenSquares = 2.5f; 
     private float minValueX = -3.75f; //  x value of the center of the left-most square
     private float minValueY = -3.75f; //  y value of the center of the bottom-most square
+
+    public TextMeshProUGUI scoreText;
+    public TextMeshProUGUI gameOverText;
+    public TextMeshProUGUI timerText;
+    public GameObject titleScreen;
+    public GameObject pauseScreen;
+    public GameObject instructionsPanel;
+    public Button restartButton; 
+    public List<GameObject> targetPrefabs;
+    public bool isGameActive;
+    public bool isPaused;
+    
+    
     
     // Start the game, remove title screen, reset score, and adjust spawnRate based on difficulty button clicked
     public void StartGame(int difficulty)
@@ -36,7 +39,16 @@ public class GameManagerX : MonoBehaviour
         StartCoroutine(UpdateTimer()); 
         
         UpdateScore(0);
+        instructionsPanel.SetActive(false);
         titleScreen.SetActive(false);
+    }
+
+    void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.P) && isGameActive)
+        {
+            ChangePaused();
+        }
     }
 
     // While game is active spawn a random target
@@ -120,6 +132,34 @@ public class GameManagerX : MonoBehaviour
     public void RestartGame()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    public void ChangePaused()
+    {
+        if(!isPaused)
+        {
+            isPaused = true;
+            pauseScreen.SetActive(true);
+            Time.timeScale = 0;
+        }
+        else
+        {
+            isPaused = false;
+            pauseScreen.SetActive(false);
+            Time.timeScale = 1;
+        }
+    }
+
+    public void displayInstructions()
+    {
+        instructionsPanel.SetActive(true);
+        titleScreen.SetActive(false);
+    }
+
+    public void GoBack()
+    {
+        instructionsPanel.SetActive(false);
+        titleScreen.SetActive(true);
     }
 
 }
