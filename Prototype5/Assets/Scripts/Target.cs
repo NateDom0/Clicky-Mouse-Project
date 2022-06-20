@@ -6,11 +6,11 @@ public class Target : MonoBehaviour
 {
     private GameManager gameManager; // get reference to GameManager script
     private Rigidbody targetRb;
-    private float minSpeed = 12;
-    private float maxSpeed = 16;
-    private float maxTorque = 10;
-    private float xRange = 4;
-    private float ySpawnPos = -2;
+    private float minSpeed = 12; // 12
+    private float maxSpeed = 16; // 16
+    private float maxTorque = 10; // 10
+    private float xRange = 4; // 4
+    private float ySpawnPos = -2; // -2
     private AudioSource getSoundEffect;
     
     public int pointValue; //each prefab has own value
