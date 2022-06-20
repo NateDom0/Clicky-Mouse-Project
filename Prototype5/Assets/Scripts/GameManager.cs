@@ -118,13 +118,13 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().name); // restart scene
     }
 
-    public void displayInstructions()
+    public void DisplayInstructions()
     {
         instructionScene.gameObject.SetActive(true);
         titleScreen.gameObject.SetActive(false);
     }
 
-    public void goBack()
+    public void GoBack()
     {
         titleScreen.gameObject.SetActive(true);
         instructionScene.gameObject.SetActive(false);

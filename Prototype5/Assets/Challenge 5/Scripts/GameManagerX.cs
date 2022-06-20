@@ -27,7 +27,6 @@ public class GameManagerX : MonoBehaviour
     public bool isPaused;
     
     
-    
     // Start the game, remove title screen, reset score, and adjust spawnRate based on difficulty button clicked
     public void StartGame(int difficulty)
     {
@@ -72,7 +71,7 @@ public class GameManagerX : MonoBehaviour
     {
         while (isGameActive && countDown >= countDownLimit)
         {
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(0.9f);
             timerText.text = "Time: " + countDown;
 
             countDown -= 1;
@@ -92,8 +91,6 @@ public class GameManagerX : MonoBehaviour
         GameOver();
         
     }
-
-
 
 
     // Generate a random spawn position based on a random index from 0 to 3
