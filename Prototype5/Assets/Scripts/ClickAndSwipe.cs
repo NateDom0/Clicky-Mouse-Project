@@ -30,21 +30,24 @@ public class ClickAndSwipe : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(gameManager.isGameActive && !gameManager.paused)
+        if(gameManager.isGameActive ) //&& !gameManager.paused
         {
-            swiping = true;
-            UpdateComponents();
-        }
-        else if(Input.GetMouseButtonUp(0) && !gameManager.paused)
-        {
-            swiping = false;
-            UpdateComponents();
-        }
+            if(Input.GetMouseButtonDown(0) && !gameManager.paused) // if left-mouse button is clicked, allow swipe
+            {
+                swiping = true;
+                UpdateComponents();
+            }
+            else if(Input.GetMouseButtonUp(0)) // if left-mouse button released, no swipe
+            {
+                swiping = false;
+                UpdateComponents();
+            }
 
-        if(swiping && !gameManager.paused)
-        {
-            UpdateMousePosition();
-        }
+            if(swiping && !gameManager.paused)
+            {
+                UpdateMousePosition();
+            }
+        } 
     }
 
     // Sets up the GameObject to move with the mouse position
@@ -71,3 +74,25 @@ public class ClickAndSwipe : MonoBehaviour
         }        
     }
 }
+
+//Broken code
+/*
+void Update()
+    {
+        if(gameManager.isGameActive && !gameManager.paused)
+        {
+            swiping = true;
+            UpdateComponents();          
+        }
+        else if(Input.GetMouseButtonUp(0) && !gameManager.paused)
+        {
+            swiping = false;
+            UpdateComponents();
+        }
+
+        if(swiping && !gameManager.paused)
+        {
+            UpdateMousePosition();
+        }
+    }
+    */
