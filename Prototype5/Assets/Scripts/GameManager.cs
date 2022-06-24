@@ -130,3 +130,4 @@ public class GameManager : MonoBehaviour
         instructionScene.gameObject.SetActive(false);
     }
 }
+
